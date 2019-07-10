@@ -1,0 +1,45 @@
+qbsp
+{
+	"Only Entities" = "-onlyents"
+	"Full Detail" = "-fulldetail"
+	"Verbose" = "-v"
+	"GL View" = "-glview"
+	"No Fill" = "-nofill"
+	"No Optimize" = "-noopt"
+	"No Water" = "-nowater"
+	"No Draw" = "-nodraw"
+	"Textures Only" = "-onlytextures"
+	"No TJunc" = "-notjunc"
+	"No Curves" = "-notcurves"
+	"Verbose Entities" = "-verboseentities"
+	"Leak Test" = "-leaktest"
+	"No Subdivide" = "-nosubdivide"	
+	"No Fog" = "-nofog"
+	"Fake Map" = "-fakemap"
+	"Temp Out" = "-tmpout"
+	"Expanded Map" = "-expand"
+}
+
+qvis
+{
+	"" = "-vis" : always
+	"Fast" = "-fast"
+	"Verbose" = "-v"
+}
+
+qrad
+{
+	"" = "-light" : always
+	"Extra Detail" = "-extra"
+	"Verbose" = "-v"
+	"No Occlusion Trace" = "-notrace"
+	"Extra Wide Detail Tracing" = "-extrawide"
+	"No Tracing Against Surfaces" = "-nosurf"
+	"Add Lightmap Border" = "-border"
+	"Dump Occlusion Maps" = "-dump"
+}
+
+bots
+{
+	"" = "-bsp2aas" : always
+}

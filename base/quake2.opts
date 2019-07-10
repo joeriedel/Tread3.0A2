@@ -1,0 +1,34 @@
+qbsp
+{
+	"Only Entities" = "-onlyents" : off
+	"Verbose" = "-v" : off
+	"Full Detail" = "-fulldetail" : off
+	"Don't Fix T-Junctions" = "-notjunc" : off
+	"No Fill" = "-nofill" : off
+	"No CSG" = "-nocsg" : off
+	"No Detail" = "-nodetail" : off
+	"No Merge" = "-nomerge" : off
+	"No Share" = "-noshare" : off
+	"No Subdivision" = "-nosubdiv" : off
+	"No Optimize" = "-noopt" : off
+	"No Prune" = "-noprune" : off
+	"No Water" = "-nowater" : off
+	"No Weld" = "-noweld" : off
+	"Leak Test" = "-leaktest" : off
+}
+
+qvis
+{
+	"Fast" = "-fast" : off
+	"No Sort" = "-nosort" : off
+	"Cull Error" = "-cullerror" : off
+	"Verbose" = "-v" : off
+}
+
+qrad
+{
+	"Extra" = "-extra" : off
+	"No Block" = "-noblock" : off
+	"No Color" = "-nocolor" : off
+	"No PVS" = "-nopvs" : off
+}

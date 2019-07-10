@@ -1,0 +1,698 @@
+//
+// Quake3 entity script.
+// Made this from the original Tread GDF2 file
+//
+
+Quake3 // Game Name
+Quake3 // Plugin To Use
+
+@worldspawn
+{
+	$key message : Message default "" as string
+	$key music : "World Sound" default 1 as integer
+	$key ambient : "Ambient Light Level" default "0" as integer
+	$key _color : "Ambient Color" default "0 0 0" as color
+	$key gravity : "Gravity" default "800" as integer
+}
+
+@base Point
+{
+	$att owner false
+}
+
+@base SpawnFlags
+{
+	$key noteam : "Spawn in Team Games" default 0 as integer choices
+	{
+		"Yes" = 0
+		"No" = 1
+	}
+	
+	$key notfree : "Spawn in FFA" default 0 as integer choices
+	{
+		"Yes" = 0
+		"No" = 1
+	}
+	
+	$key notsingle : "Spawn in Single Player" default 0 as integer choices
+	{
+		"Yes" = 0
+		"No" = 1
+	}
+}
+
+@base GameP extends Point SpawnFlags
+{
+}
+
+@base Solid
+{
+	$att owner true
+}
+
+@base Func extends Point
+{
+	$att category "Func"	
+}
+
+@base SolidFunc extends Solid SpawnFlags
+{
+	$att category "Func"	
+}
+
+@base TargetName
+{
+	$key targetname : Name default "" as string for target_dst
+}
+
+@base Target
+{
+	$key target : Target default "" as string for target_src
+}
+
+@base Team
+{
+	$key team : "Team" default "" as string
+}
+
+//
+// Ammo
+//
+
+@base Ammo extends Target TargetName Team GameP
+{
+	$att category Ammo
+	$att box size "-16 -16 -16 16 16 16" color "0 0 1"
+	$key angle : "Angle" default 0 as facing
+	$key random : "Random" default 0 as integer
+	$key wait : "Wait before respawn" default 40 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Suspended" = 1
+	}
+}
+
+ammo_bfg : "BFG Ammo" extends Ammo
+{
+	$key count : "Count" default 15 as integer
+}
+
+ammo_bullets : "Machine Gun Ammo" extends Ammo
+{
+	$key count : "Count" default 50 as integer
+}
+
+ammo_cells : "Plasma Gun Ammo" extends Ammo
+{
+	$key count : "Count" default 30 as integer
+}
+
+ammo_grenades : "Grenade Launcher Ammo" extends Ammo
+{
+	$key count : "Count" default 5 as integer
+}
+
+ammo_lightning : "Lightning Gun Ammo" extends Ammo
+{
+	$key count : "Count" default 60 as integer
+}
+
+ammo_rockets : "Rocket Launcher Ammo" extends Ammo
+{
+	$key count : "Count" default 5 as integer
+}
+
+ammo_shells : "Shotgun Ammo" extends Ammo
+{
+	$key count : "Count" default 10 as integer
+}
+
+ammo_slugs : "Railgun Ammo" extends Ammo
+{
+	$key count : "Count" default 10 as integer
+}
+
+//
+// Functional Entities
+//
+
+func_bobbing : "Bobbing Entity" extends SolidFunc
+{
+	$key speed : Speed default 4 as integer
+	$key height : Height default 32 as integer
+	$key phase : Phase default 0 as integer
+	$key noise : Noise default "sound/world/drone6.wav" as string
+	$key model2 : Model default "models/mapobjects/jets/jets01.md3" as string
+	$key _minlight : "Glow Lighting" default 0 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"X Axis" = 1
+		"Y Axis" = 2
+	}
+}
+
+func_button : "Button" extends TargetName SolidFunc
+{
+	$key angle : Direction default -1 as integer
+	$key speed : Speed default 40 as integer
+	$key wait : Wait default 2 as integer
+	$key lip : Lip default 0 as integer
+	$key health : Health default 0 as integer
+	$key dmg : Damage default 5 as integer
+	$key _minlight : "Glow Lighting" default 0 as integer
+	$key light : "Light Radius" default 0 as integer
+	$key color : "Light Color" default "" as color
+	$key model2 : "Model" default "models/mapobjects/pipe/pipe02.md3" as string
+	$key origin : "Origin" default "0 0 0" as string
+}
+
+func_door : "Door" extends func_button
+{
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Start Open" = 1
+		"Crusher" = 2
+	}
+}
+
+func_pendulum : "Pendulum" extends SolidFunc
+{
+	$key angle : "Angle Offset" default 0 as integer
+	$key speed : "Angle of Swing Arc" default 30 as integer
+	$key phase : "Start Offset" default 0 as integer
+	$key noise : Noise default "sound/world/drone6.wav" as string
+	$key model2 : "Model" default "models/mapobjects/jets/jets01.md3" as string
+	$key origin : "Origin" default "0 0 0" as string
+	$key _minlight : "Glow Lighting" default 0 as integer
+	$key light : "Light Radius" default 0 as integer
+	$key color : "Light Color" default "" as color
+}
+
+func_rotating : "Rotating Entity" extends SolidFunc
+{
+	$key speed : Speed default 4 as integer
+	$key noise : Noise default "sound/world/drone6.wav" as string
+	$key model2 : Model default "models/mapobjects/bitch/fembotbig.md3" as string
+	$key origin : "Origin" default "0 0 0" as string
+	$key _minlight : "Glow Lighting" default 0 as integer
+	$key light : "Light Radius" default 0 as integer
+	$key color : "Light Color" default "" as color
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"X Axis" = 1
+		"Y Axis" = 2
+	}
+}
+
+func_static : "Static" extends TargetName SolidFunc
+{
+	$key model2 : Model default "models/mapobjects/bitch/fembotbig.md3" as string
+	$key _minlight : "Glow Lighting" default 0 as integer
+	$key light : "Light Radius" default 0 as integer
+	$key color : "Light Color" default "" as color
+}
+
+func_timer : "Timer" extends Target TargetName Func
+{
+	$att box size "-4 -4 -4 4 4 4"
+	$key random : "Random" default 0 as integer
+	$key wait : "Wait before respawn" default 5 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Start On" = 1
+	}
+}
+
+func_train : "Train" extends Target SolidFunc
+{
+	$key speed : Speed default 100 as integer
+	$key model2 : Model default "models/mapobjects/pipe/pipe02.md3" as string
+	$key origin : "Origin" default "0 0 0" as string
+	$key _minlight : "Glow Lighting" default 0 as integer
+	$key light : "Light Radius" default 0 as integer
+	$key color : "Light Color" default "" as color
+}
+
+@base Inventory extends Team Target TargetName GameP
+{
+	$att category Inventory
+	$att box size "-16 -16 -16 16 16 16"
+	$key angle : Angle default 0 as facing
+	$key random : "Random" default 0 as integer
+	$key wait : "Wait before respawn" default 60 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Suspended" = 1
+	}
+}
+
+holdable_medkit : "Medical Kit" extends Inventory {}
+holdable_teleporter : "Teleporter" extends Inventory {}
+
+@base Info extends Point
+{
+	$att category Info
+}
+
+info_notnull : "Positional Target Alt." extends TargetName Info
+{
+	$att box size "-8 -8 -8 8 8 8"
+	$key angle : Angle default 0 as facing
+}
+
+info_null : "Positional Target" extends TargetName Info
+{
+	$att box size "-8 -8 -8 8 8 8"
+	$key angle : Angle default 0 as facing
+}
+
+info_player_deathmatch : "Deathmatch Start" extends Target Info
+{
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default 0 as facing
+	$key nobots : "No Bots Spawn" default 0 as integer choices
+	{
+		Yes = 0
+		No = 1
+	}
+	$key nohumans : "No Humans Spawn" default 0 as integer choices
+	{
+		Yes = 0
+		No = 1
+	}
+}
+
+info_player_intermission : "Intermission Camera" extends Target Info
+{
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default "0 0 0" as vector
+}
+
+info_player_start : "Single Player Start" extends Target Info
+{
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default "0 0 0" as vector
+}
+
+info_firstplace : "1st Place Marker" extends Info
+{
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default 0 as facing
+}
+
+info_secondplace : "2nd Place Marker" extends Info
+{
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default 0 as facing
+}
+
+info_thirdplace : "3rd Place Marker" extends Info
+{
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default 0 as facing
+}
+
+info_spectator_start : "Spectator Start" extends Info
+{
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default 0 as facing
+}
+
+//
+// Items
+//
+
+@base Item extends Target TargetName Team GameP
+{
+	$att category Items
+	$att box size "-16 -16 -16 16 16 16"
+	$key angle : Angle default 0 as facing
+	$key random : Random default 0 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Suspended" = 1
+	}
+}
+
+item_armor_body : "Body Armor" extends Item
+{
+	$key wait : "Wait before respawn" default 25 as integer
+}
+
+item_armor_combat : "Combat Armor" extends Item
+{
+	$key wait : "Wait before respawn" default 25 as integer
+}
+
+item_armor_shard : "Armor Shard" extends Item
+{
+	$key wait : "Wait before respawn" default 25 as integer
+}
+
+item_enviro : "Battle Suit" extends Item
+{
+	$key wait : "Wait before respawn" default 120 as integer
+	$key count : Count default 30 as integer
+}
+
+item_flight : "Flight Pack" extends Item
+{
+	$key wait : "Wait before respawn" default 120 as integer
+	$key count : Count default 60 as integer
+}
+
+item_haste : "Speed Boost" extends Item
+{
+	$key wait : "Wait before respawn" default 120 as integer
+	$key count : Count default 30 as integer
+}
+
+item_health : "+25 Health" extends Item
+{
+	$key wait : "Wait before respawn" default 25 as integer
+	$key count : Count default 25 as integer
+}
+
+item_health_small : "+5 health" extends Item
+{
+	$key wait : "Wait before respawn" default 35 as integer
+	$key count : Count default 5 as integer
+}
+
+item_health_large : "+50 Health" extends Item
+{
+	$key wait : "Wait before respawn" default 35 as integer
+	$key count : Count default 50 as integer
+}
+
+item_health_mega : "+100 health" extends Item
+{
+	$key wait : "Wait before respawn" default 40 as integer
+	$key count : Count default 100 as integer
+}
+
+item_invis : "Invisibility" extends Item
+{
+	$key wait : "Wait before respawn" default 120 as integer
+	$key count : Count default 30 as integer
+}
+
+item_quad : "Quad Damage" extends Item
+{
+	$key wait : "Wait before respawn" default 120 as integer
+	$key count : Count default 30 as integer
+}
+
+item_regen : "Regeneration" extends Item
+{
+	$key wait : "Wait before respawn" default 120 as integer
+	$key count : Count default 30 as integer
+}
+
+//
+// Light
+//
+
+light : "Point Light" extends Target Point
+{
+	$att box size "-8 -8 -8 8 8 8"
+	$key light : "Intensity" default 300 as integer
+	$key radius : "Cone Radius" default 64 as integer
+	$key _color : "Color" default "1 1 1" as color
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Linear" = 1
+	}
+}
+
+@base Misc extends GameP
+{
+	$att category Misc
+}
+
+misc_model : "Model" extends Point
+{
+	$att category Misc
+	$att box size "-16 -16 -16 16 16 16"
+	$key angle : Angle default 0 as facing
+	$key model2 : Model default "models/mapobjects/teleporter/teleporter.md3" as string
+}
+
+misc_portal_camera : "Portal Camera" extends Target TargetName Misc
+{
+	$att box size "-8 -8 -8 8 8 8"
+	$key angles : Angles default "0 0" as string
+	$key roll : Roll default 180 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Slow" = 1
+		"Fast" = 2
+	}
+}
+
+misc_portal_surface extends Target Misc
+{
+	$att box size "-4 -4 -4 4 4 4"
+}
+
+misc_teleporter_dest : "Teleporter Destination" extends TargetName Misc
+{
+	$att box size "-32 -32 -20 32 32 20"
+	$key angle : Angle default 0 as facing
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"SF4" = 1
+	}
+}
+
+//
+// Path Corner
+//
+
+path_corner : "Path Corner" extends Target TargetName Misc
+{
+	$att box size "-4 -4 -4 4 4 4"
+	$key angle : Angle default 0 as facing
+	$key speed : Speed default "" as integer
+	$key wait : Pause default 0 as integer
+}
+
+@base Shoot extends Target TargetName Misc
+{
+	$att box size "-8 -8 -8 8 8 8"
+	$key angles : Angles default "0 0" as string
+	$key random : Random default "0" as integer
+}
+
+shooter_grenade : "Shooter Grenade" extends Shoot {}
+shooter_plasma  : "Shooter Plasma" extends Shoot {}
+shooter_rockt : "Shooter Rockets" extends Shoot {}
+
+@base Targets extends Target TargetName GameP
+{
+	$att category Target
+	$att box size "-4 -4 -4 4 4 4"
+}
+
+target_delay : "Delay Trigger" extends Targets
+{
+	$key wait : "Wait before retargeting" default 1 as integer
+	$key delay : "Delay before targeting" default 1 as integer
+	$key random : Random default 0 as integer
+}
+
+target_give : "Give Items" extends Targets {}
+target_kill : "Kill Player" extends Targets {}
+
+target_laser : "Laser Beam" extends Targets
+{
+	$key angles : "Pitch Yaw Roll" default "0 0 0" as vector
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Start On" = 1
+	}
+}
+
+target_location : "Location Identifier" extends Targets
+{
+	$key message : Message default "" as string
+	$key count : "Color" default 0 as integer choices
+	{
+		White = 0
+		Red = 1
+		Green = 2
+		Yellow = 3
+		Blue = 4
+		Cyan = 5
+		Magenta = 6
+		White = 7
+	}
+}
+
+target_position : "Aiming Entity" extends Targets {}
+
+target_print : "Display Message" extends Targets
+{
+	$key message : Message default "" as string
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Red Team" = 1
+		"Blue Team" = 2
+		"Private" = 4
+	}
+}
+
+target_push : "Push" extends Targets
+{
+	$key angles : "Pitch Yaw " default "0 0" as string
+	$key speed : Speed default "1000" as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Bounce Pad" = 1
+	}
+}
+
+target_relay : "Relay" extends Targets
+{
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Red Only" = 1
+		"Blue Only" = 2
+		"Random" = 4
+	}
+}
+
+target_remove_powerups : "Remove Powerups" extends Targets {}
+
+target_score : "Score" extends Targets
+{
+	$key count : Count default 1 as integer
+}
+
+target_speaker : "Sound" extends Targets
+{
+	$key wait : "Wait before replaying" default 1 as integer
+	$key noise : "Sound" default "sound/world/growll.wav" as string
+	$key random : Random default 0 as integer
+	
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Looped On" = 1
+		"Looped Off" = 2
+		"Global" = 4
+		"Activator" = 8
+	}
+}
+
+target_teleporter : "Teleporter" extends Targets {}
+
+//
+// Team Entities
+//
+
+@base CTF extends Point
+{
+	$att category CTF
+	$att box size "-16 -16 -28 16 16 28"
+	$key angle : Angle default 0 as facing
+}
+
+team_ctf_blueflag : "CTF Blue Flag" extends CTF {}
+team_ctf_blueplayer : "CTF Blue Player Start" extends CTF {}
+team_ctf_bluespawn : "CTF Blue Player Restart" extends CTF {}
+team_ctf_readflag : "CTF Red Flag" extends CTF {}
+team_ctf_redplayer : "CTF Red Player Start" extends CTF {}
+team_ctf_redspawn : "CTF Red Player Restart" extends CTF {}
+
+//
+// Triggers
+//
+@base Trigger extends Target TargetName GameP
+{
+	$att category Triggers
+	$att box size "-4 -4 -4 4 4 4"
+}
+
+trigger_always : "Trigger Always" extends Trigger {}
+
+trigger_hurt : "Trigger Damage" extends Trigger
+{
+	$key dmg : Damage default 5 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Start Off" = 1
+		"Silent" = 2
+		"No Protection" = 4
+		"Slow" = 8
+	}
+}
+
+trigger_multiple : "Trigger Multiple" extends Trigger
+{
+	$key wait : "Wait before repeating" default 1 as integer
+	$key random : Random default 0 as integer
+}
+
+trigger_push : "Trigger Move Player" extends Trigger {}
+trigger_teleport : "Teleport Trigger" extends Trigger {}
+
+//
+// Weapons
+//
+
+@base Weapon extends Target TargetName GameP
+{
+	$att category Weapons
+	$att box size "-16 -16 -16 16 16 16"
+	$key angle : Angle default 0 as facing
+	$key random : Random default 0 as integer
+	$key team : Team default "" as string
+	$key wait : "Wait before respawn" default 5 as integer
+	$key spawnflags : "Spawn Flags" default 0 as integer flags
+	{
+		"Suspended" = 1
+	}
+}
+
+weapon_bfg : "BFG" extends Weapon
+{
+	$key count : Count default 20 as integer
+}
+
+weapon_gauntlet : "Gauntlet" extends Weapon {}
+weapon_grapplinghook : "Grappling Hook" extends Weapon {}
+
+weapon_grenadelauncher : "Grenade Launcher" extends Weapon
+{
+	$key count : Count default 10 as integer
+}
+
+weapon_lightning : "Lighting Gun" extends Weapon
+{
+	$key count : Count default 100 as integer
+}
+
+weapon_machinegun : "Machine Gun" extends Weapon
+{
+	$key count : Count default 100 as integer
+}
+
+weapon_plasmagun : "Plasma Gun" extends Weapon
+{
+	$key count : Count default 50 as integer
+}
+
+weapon_railgun : "Rail Gun" extends Weapon
+{
+	$key count : Count default 10 as integer
+}
+
+weapon_rocketlauncher : "Rocket Launcher" extends Weapon
+{
+	$key count : Count default 10 as integer
+}
+
+weapon_shotgun : "Shotgun" extends Weapon
+{
+	$key count : Count default 10 as integer
+}

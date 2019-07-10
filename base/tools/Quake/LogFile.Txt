@@ -1,0 +1,13 @@
+Memory leak dump
+Total free mem with purging 8368544
+Used handle list
+#     Handle    Addr   Attr  ID    Size     Prev     Next
+0001 00771F70 00000000 00C0 FFFE 021F36E0 00771F54 021F004C
+0002 021F004C 021F36E0 0000 0000 00001770 00771F70 021F0068 File C:\Projects\BurgerLibIntel\Source\MMMemoryManager.c, Line 800
+0003 021F0068 029EFFF0 0040 0000 00000024 021F004C 00771F54 File C:\Projects\BurgerLibIntel\Win95Source\FmWin95Code.c, Line 651
+0004 00771F54 029F0020 00C0 FFFE FD60FFDF 021F0068 00771F70
+Purged handle list
+#     Handle    Addr   Attr  ID    Size     Prev     Next
+Free memory list
+#     Handle    Addr   Attr  ID    Size     Prev     Next
+0001 021F012C 021F4E50 004C 021F 007FB1A0 00771FA8 00771FA8

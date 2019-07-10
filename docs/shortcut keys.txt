@@ -1,0 +1,7 @@
+CTRL + LCLICK adds/removes selection
+CTRL + LDRAG box adds to selection
+ALT + LDRAG box removes from selection
+SHIFT + LCLICK on a vertex in a 2D view will not select vertices on top of eachother (closest one gets picked), otherwise all are selected.
+In brush face mode in the 3D view: CTRL + LDRAG scales texture, ALT + LDRAG rotates texture, SHIFT + LDRAG shifts y tex, LDRAG shifts x tex (move mouse up/down).
+Cannot delete verts on brushes explicitly, but you can collapse them and they will be removed.
+Press W while mousing over a view to toggle minimized and maximized.

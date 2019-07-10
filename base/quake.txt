@@ -1,0 +1,595 @@
+//
+// Quake entity script.
+// Based on WorldCraft Quake.fgd written by autolycus / autolycus@planetquake.com
+//
+
+Quake // Game Name
+Quake // Plugin
+
+@worldspawn
+{
+	$key message : Message default "" as string
+	$key sounds : "CD Track" default 1 as integer
+	$key light : "Ambient Light Level" default 0 as integer
+	$key worldtype : "Ambience 0-1-2" default 1 as string
+}
+
+//
+// Common
+//
+
+@base SpawnFlags
+{
+	$key spawnflags : "SpawnFlags" default "0" as integer flags
+	{
+		"Not in easy" = 256
+		"Not in normal" = 512
+		"Not in hard" = 1024
+		"Not in deathmatch" = 2048
+	}
+}
+
+@base TargetName
+{
+	$key targetname : Name default "" as string for target_dst
+}
+
+@base Target
+{
+	$key target : Target default "" as string for target_src
+	$key killtarget : KillTarget default "" as string for target_src
+}
+
+//
+// Player
+//
+
+@base Player extends SpawnFlags
+{
+	$att box size "-16 -16 -24 16 16 24" color "0 0 1"
+	$key angle : Angle default "0" as facing
+	$att category "Player"
+}
+
+info_player_start : "Single Player Start" extends Player {}
+info_player_coop : "Coop Player Start" extends Player {}
+info_player_start2 : "Player Episode Return Point" extends Player {}
+info_player_deathmatch : "Deathmatch Start" extends Player {}
+info_teleport_destination : "Teleport Destination" extends Player
+{
+	$att box size "-32 -32 0 32 32 64" color "0 0 1"
+}
+
+info_intermission : "Intermission Camera" extends SpawnFlags
+{
+	$att category Misc
+	$key mangle : "Mangle (Pitch Yaw Roll)" default "0 0 0" as string
+}
+
+//
+// Items/Weapons
+//
+
+@base Item extends Target TargetName SpawnFlags
+{
+	$key message : "Message" default "" as string
+	$att box size "-8 -8 -8 8 8 8" colori "0 80 200"
+	$att category Items
+}
+
+@base Ammo extends Item
+{
+	$att box size "0 0 0 32 32 32" colori "80 0 200"
+	$att category Ammo
+	$key spawnflags default "0" as integer flags
+	{
+		"Large Box" = 1
+	}
+}
+
+item_cells : "Thunderbolt Ammo" extends Ammo {}
+item_rockets : "Rockets" extends Ammo
+{
+	$att box size "0 0 0 32 16 32"
+}
+item_shells : "Shells" extends Ammo {}
+item_spikes : "Nailgun Ammo" extends Ammo {}
+
+item_health : "Health Pack" extends SpawnFlags
+{
+	$att category Items
+	$key spawnflags default "0" as integer flags
+	{
+		"Rotten" = 1
+		"MegaHealth" = 2
+	}
+}
+
+item_artifact_envirosuit : "Environmental Protection Suit" extends Item {}
+item_artifact_super_damage : "Quad Damage" extends Item {}
+item_artifact_invulnerability : "Pentagram Of Protection" extends Item {}
+item_artifact_invisibility : "Ring Of Shadows" extends Item {}
+
+@base Armor extends Item
+{
+	$att box size "-16 -16 0 16 16 56"
+}
+
+@base Key extends Item
+{
+	$att box size "-16 -16 -24 16 16 32"
+}
+
+item_armorInv : "200% Armor (Red)" extends Armor {}
+item_armor2 : "150% Armor (Yellow)" extends Armor {}
+item_armor1 : "100% Armor (Green)" extends Armor {}
+
+item_key1 : "Silver Key" extends Key {}
+item_key2 : "Gold Key" extends Key {}
+item_sigil : "Sigil" extends Key
+{
+	$key spawnflags default "0" as integer flags
+	{
+		"Episode 1" = 1
+		"Episode 2" = 2
+		"Episode 3" = 4
+		"Episode 4" = 8
+	}
+}
+
+@base Weapon extends Item
+{
+	$att box size "-16 -16 0 16 16 32" colori "0 0 200"
+	$att category Weapons
+}
+
+weapon_supershotgun : "Super Shotgun" extends Weapon {}
+weapon_nailgun : "Nailgun" extends Weapon {}
+weapon_supernailgun : "Super Nailgun" extends Weapon {}
+weapon_grenadelauncher : "Grenade Launcher" extends Weapon {}
+weapon_rocketlauncher : "Rocket Launcher" extends Weapon {}
+weapon_lightning : "Thunderbolt" extends Weapon {}
+
+//
+// Monters
+//
+
+@base Monster extends SpawnFlags Target TargetName
+{
+	$att category Monters
+	$att box color "0 1 0"
+	$key angle : "Angle" default "0" as facing
+	$key spawnflags default "0" as integer flags
+	{
+		"Ambush" = 1
+	}
+}
+
+monster_army : "Grunt" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 40"
+}
+
+monster_dog : "Dog" extends Monster
+{
+	$att box size "-32 -32 -24 32 32 40"
+}
+
+monster_ogre : "Ogre" extends Monster
+{
+	$att box size "-32 -32 -24 32 32 64"
+}
+
+monster_ogre_marksman : "Ogre Marksman" extends Monster
+{
+	$att box size "-32 -32 -24 32 32 64"
+}
+
+monster_knight : "Knight" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 40"
+}
+
+monster_hell_knight : "Hell Knight" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 40"
+}
+
+monster_wizard : "Scrag" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 40"
+}
+
+monster_demon1 : "Fiend" extends Monster
+{
+	$att box size "-32 -32 -24 32 32 64"
+}
+
+monster_shambler : "Shambler" extends Monster
+{
+	$att box size "-32 -32 -24 32 32 64"
+}
+
+monster_boss : "Chthon" extends Monster
+{
+	$att box size "-128 -128 -24 128 128 256"
+}
+
+monster_enforcer : "Enforcer" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 40"
+}
+
+monster_shalrath : "Shalrath" extends Monster
+{
+	$att box size "-32 -32 -24 32 32 48"
+}
+
+monster_tarbaby : "Tarbaby" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 24"
+}
+
+monster_fish : "Rotfish" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 24"
+}
+
+monster_oldone : "Shub-Niggurath" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 32"
+}
+
+monster_zombie : "Zombie" extends Monster
+{
+	$att box size "-16 -16 -24 16 16 32"
+	$key spawnflags default "0" as integer flags
+	{
+		"Crucified" = 1
+		"Ambush" = 2
+	}
+}
+
+//
+// Lights
+//
+
+@base BaseLight extends Target TargetName
+{
+	$key light : "Brightness" default "300" as integer
+	$key style : "Appearance" default "0" as integer choices
+	{
+		"Normal" = 0
+		"Flourescent Flicker" = 10
+		"Slow, Strong Pulse" = 2
+		"Slow Pulse, No Black" = 11
+		"Gentle Pulse" = 5
+		"Flicker A" = 1
+		"Flicker B" = 6
+		"Candle A" = 3
+		"Candle B" = 7
+		"Candle C" = 8
+		"Fast Strobe" = 4
+		"Slow Strobe" = 9
+	}
+	$att category Lights
+	//$att box size "-8 -8 -8 8 8 8" color "1 1 0"
+	$att icon "base/icons/omni light.tga" size "32 32"
+}
+
+@base CanBeDarkLight extends BaseLight
+{
+	$key spawnflags default "0" as integer flags
+	{
+		"Initially Dark" = 1
+	}
+}
+
+info_null : "info_null (Spotlight Target)"
+{
+	$att category Lights
+	$key targetname : Name default "" as string for target_src
+}
+
+info_notnull : "info_notnull (Spotlight Target)" extends Target TargetName
+{
+	$att category Lights
+	$key use default "self.use" as string
+	$key think default "self.think" as string
+	$key nextthink default "0" as integer
+	$key noise default "" as string
+	$key wait default "0" as integer
+}
+
+light : "Light" extends CanBeDarkLight {}
+light_fluoro : "Fluorescent Light" extends CanBeDarkLight {}
+light_fluorospark : "Sparking Fluorescent Light" extends CanBeDarkLight {}
+light_globe : "Globe Light" extends BaseLight {}
+light_flame_large_yellow : "Large Yellow Flame" extends BaseLight
+{
+	$att box size "-8 -8 -12 8 8 20"
+}
+light_flame_small_yellow : "Small Yellow Flame" extends BaseLight
+{
+	$att box size "-4 -4 -12 4 4 20"
+}
+light_flame_small_white : "Small White Flame" extends CanBeDarkLight
+{
+	$att box size "-4 -4 -12 4 4 20"
+}
+light_torch_small_walltorch : "Small Walltorch" extends BaseLight
+{
+	$att box size "-4 -4 -12 4 4 20"
+}
+
+//
+// Misc
+//
+
+@base Misc
+{
+	$att category Misc
+}
+
+air_bubbles : "Air Bubbles" extends SpawnFlags Misc {}
+event_lightning : "Chthon's Lightning" extends SpawnFlags Misc {}
+misc_fireball : "Fireball" extends SpawnFlags Misc { $key speed : "Speed" default "40" as integer }
+misc_explobox : "Large Explode Container" extends Misc
+{
+	$att box size "0 0 0 32 32 64"
+}
+misc_explobox2 : "Small Explode Container" extends Misc
+{
+	$att box size "0 0 0 32 32 32"
+}
+
+trap_spikeshooter : "Triggered Spike Shooter" extends TargetName
+{
+	$att category Triggers
+	$key spawnflags : "SpawnFlags" default "0" as integer choices
+	{
+		"Super Spike" = 1
+		"Laser" = 2
+	} 
+}
+
+trap_shooter : "Continuous Spike Shooter" extends trap_spikeshooter Misc {}
+
+path_corner : "Path Way Point"
+{
+	$att category Misc
+	$att box size "-8 -8 -8 8 8 8"
+}
+
+//
+// Sounds
+//
+
+@base Sound
+{
+	$att category Sounds
+}
+
+ambient_drip : "Dripping Sound" extends Sound {}
+ambient_drone : "Machinery Sound" extends Sound {}
+ambient_comp_hum : "Computer Sounds" extends Sound {}
+ambient_flouro_buzz : "Fluorescent Buzzing Sound" extends Sound {}
+ambient_light_buzz : "Buzzing Sound From Light" extends Sound {}
+ambient_suck_wind : "Wind Sound" extends Sound {}
+ambient_swamp1 : "Frogs Croaking A" extends Sound {}
+ambient_swamp2 : "Frogs Croaking B" extends Sound {}
+ambient_thunder : "Thunder Sound" extends Sound {}
+
+//
+// Solids
+//
+
+@base Solid
+{
+	$att owner true
+}
+
+@base Moving extends Solid Target TargetName
+{
+	$key dmg : "Damage When Blocked" default "2" as integer
+	$key health : "Health (Shoot Open)" default "0" as integer
+	$key speed : "Speed" default "100" as integer
+	$key angle : "Angle" default "0" as facing
+	$key wait : "Wait Options" default "0" as integer choices
+	{
+		"Stays Open" = -1
+	}
+	$key sounds : "Sounds" default "2" as integer choices
+	{
+		"Silent" = 0
+		"Stone" = 1
+		"Base" = 2
+		"Stone Chain" = 3
+		"Screechy Metal" = 4
+	}
+}
+
+func_illusionary : "Illusionary (Doesn't Clip)" extends Solid {}
+
+func_door : "Door" extends Moving
+{
+	$key message : "Touch Message" default "" as string
+	$key lip : "Lip" default "8" as integer
+	$key spawnflags : "SpawnFlags" default "0" as integer flags
+	{
+		"Starts Open" = 1
+		"Don't Link" = 4
+		"Gold Key" = 8
+		"Silver Key" = 16
+		"Toggle" = 32
+	}
+}
+
+func_door_secret : "Secret Door" extends Moving
+{
+	$key t_width : "Travel Width" default "0" as integer
+	$key t_height : "Travel Height" default "0" as integer
+	$key spawnflags : "SpawnFlags" default "0" as integer flags
+	{
+		"Open Once" = 1
+		"1st Left" = 2
+		"1st Down" = 4
+		"No Shoot" = 8
+		"Always Shoot" = 16
+	}
+}
+
+func_wall : "Solid Wall" extends Moving {}
+
+func_button : "Button" extends Moving
+{
+	$key delay : "Delay Before Reset" default "0" as integer
+	$key lip : "Lip" default "4" as integer
+	$key spawnflags : "SpawnFlags" default "0" as integer choices
+	{
+		"None" = 0
+		"Stays Pressed" = -1
+	}
+	$key sounds : "Sounds" default "1" as integer choices
+	{
+		"Steam Metal" = 1
+		"Wooden Clunk" = 2
+		"Metallic Clunk" = 3
+		"In-Out" = 4
+	}
+}
+
+func_train : "Moving Platform" extends Moving
+{
+	$key sounds : "Sounds" default "1" as integer choices
+	{
+		"None" = 0
+		"Ratchet Metal" = 1
+	}
+}
+
+func_plat : "Elevator" extends Moving
+{
+	$key height : "Height" default "150" as integer
+	$key spawnflags : "SpawnFlags" default "0" as integer choices
+	{
+		"None" = 0
+		"Low Trigger" = 1
+	}
+	$key sounds : "Sounds" default "1" as integer choices
+	{
+		"None" = 0
+		"Base Fast" = 1
+		"Chain Slow" = 2
+	}
+}
+
+func_episodegate : "Episode Gate" extends Moving
+{
+	$key spawnflags : "SpawnFlags" default "1" as integer choices
+	{
+		"Episode 1" = 1
+		"Episode 2" = 2
+		"Episode 3" = 4
+		"Episode 4" = 8
+	}
+}
+
+func_bossgate : "Boss Gate" extends Moving {}
+
+//
+// Triggers
+//
+
+@base Trigger extends Target TargetName
+{
+	$att category "Triggers"
+	$key killtarget : "Kill Target" default "" as string
+	$key message : "Message" default "" as string
+	$key delay : "Delay Before Trigger" default "0" as integer
+	$key wait : "Wait Before Reset" default "0" as integer
+	$key health : "Health" default "0" as integer
+	
+	$key spawnflags : "SpawnFlags" default "0" as integer choices
+	{
+		"None" = 0
+		"No Touch" = 1
+	}
+	
+	$key sounds : "Sounds" default "0" as integer choices
+	{
+		"None" = 0
+		"Secret" = 1
+		"Beep" = 2
+		"Large Switch" = 3
+	}
+}
+
+@base SolidTrigger extends Solid Trigger {}
+@base InvisibleSolidTrigger extends SolidTrigger
+{
+	$att repaint "TRIGGER"
+}
+
+trigger_changelevel : "Trigger Level Change" extends InvisibleSolidTrigger
+{
+	$key map : "Map Name" default "" as string
+	$key spawnflags : "SpawnFlags" default "0" as integer choices
+	{
+		"None" = 0
+		"No Intermission" = 1
+	}
+}
+
+trigger_once : "Trigger Once" extends InvisibleSolidTrigger {}
+trigger_multiple : "Trigger Multiple" extends InvisibleSolidTrigger {}
+trigger_secret : "Trigger Secret" extends InvisibleSolidTrigger {}
+trigger_onlyregistered : "Trigger Only Registered" extends InvisibleSolidTrigger {}
+trigger_teleport : "Trigger Teleport" extends InvisibleSolidTrigger 
+{
+	$key spawnflags : "SpawnFlags" default "0" as integer flags
+	{
+		"Player Only" = 1
+		"Silent" = 2
+	}
+}
+misc_teleporttrain : "Spiked Ball Teleporter" extends InvisibleSolidTrigger {}
+trigger_setskill : "Set Skill Level" extends SolidTrigger 
+{
+	$key message : "Skill Level" default "0" as integer choices
+	{
+		"Easy" = 0
+		"Medium" = 1
+		"Hard" = 2
+		"Nightmare" = 3
+	}
+}
+trigger_relay : "Trigger Relay" extends Trigger {}
+trigger_monsterjump : "Trigger Monster Jump" extends InvisibleSolidTrigger
+{
+	$key speed : "Jump Speed" default "200" as integer
+	$key height : "Jump Height" default "200" as integer
+}
+trigger_counter : "Trigger Counter" extends SolidTrigger
+{
+	$key spawnflags : "SpawnFlags" default "0" as integer choices
+	{
+		"None" = 0
+		"No Message" = 1
+	}
+	$key count : "Count Before Activation" default "2" as integer
+}
+trigger_push : "Trigger Player Push" extends SolidTrigger
+{
+	$key spawnflags : "SpawnFlags" default "0" as integer choices
+	{
+		"None" = 0
+		"Once Only" = 1
+	}
+}
+trigger_hurt : "Trigger Player Hurt" extends InvisibleSolidTrigger
+{
+	$key dmg : "Damage" default "5" as integer
+	$key wait : "Delay Before Reset" default "0" as integer
+	$key message : "Message" default "" as string
+}

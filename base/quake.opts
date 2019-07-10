@@ -1,0 +1,18 @@
+qbsp
+{
+	"Don't Fix T-Junctions" = "-nojunc" : off
+	"No Fill" = "-nofill" : off
+	"Draw" = "-draw" : off
+	"Only Entities" = "-onlyents" : off
+	"Verbose" = "-verbose" : off
+}
+
+qvis
+{
+	"Fast" = "-fast" : off
+}
+
+qlight
+{
+	"Extra" = "-extra" : off
+}

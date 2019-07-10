@@ -1,0 +1,216 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\QGames.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Joe Riedel"
+            VALUE "FileDescription", "Quake Series Games Support"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "QGames.dll"
+            VALUE "LegalCopyright", "Copyright (c) 2008 Joe Riedel, All Rights Reserved"
+            VALUE "OriginalFilename", "QGames.dll"
+            VALUE "ProductName", "Tread"
+            VALUE "ProductVersion", "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_QUAKECONFIG DIALOGEX 0, 0, 204, 322
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,53,299,50,16
+    PUSHBUTTON      "Cancel",IDCANCEL,111,299,50,16
+    GROUPBOX        "Pak Files",IDC_STATIC,7,109,190,94
+    LISTBOX         IDC_PAKFILES,11,120,103,78,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Add...",IDC_ADD_PAK,131,131,50,14
+    PUSHBUTTON      "Remove",IDC_REMOVE_PAK,131,152,50,14
+    GROUPBOX        "Tools",IDC_STATIC,7,207,190,85
+    LISTBOX         IDC_TOOLS,12,218,48,69,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TOOL_LOC,65,230,113,14,ES_AUTOHSCROLL
+    LTEXT           "Location",IDC_STATIC,65,220,28,8
+    EDITTEXT        IDC_CMDLINE,65,266,115,14,ES_AUTOHSCROLL
+    LTEXT           "Additional Command Line",IDC_STATIC,65,256,80,8
+    PUSHBUTTON      "...",IDC_LOCATE_TOOL,180,230,15,14
+    GROUPBOX        "Game .EXE",IDC_STATIC,7,7,190,95
+    EDITTEXT        IDC_GAMEEXE,13,22,162,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_LOCATE_GAME,179,22,15,14
+    EDITTEXT        IDC_EXE_CMDLINE,14,82,161,14,ES_AUTOHSCROLL
+    LTEXT           "Additional Command Line",IDC_STATIC,14,72,80,8
+    EDITTEXT        IDC_GAME_DIR,14,54,161,14,ES_AUTOHSCROLL
+    LTEXT           "Game Directory",IDC_STATIC,14,43,50,8
+    PUSHBUTTON      "...",IDC_LOCATE_DIR,179,54,15,14
+END
+
+IDD_QUAKE_BUILD_OPTIONS DIALOGEX 0, 0, 221, 219
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Build Options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,58,198,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,114,198,50,14
+    CONTROL         "",IDC_QUAKE_BUILDOPTIONS_OPTION_LIST,"SysListView32",LVS_LIST | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,123,17,91,143
+    LTEXT           "Tools",IDC_STATIC,8,7,18,8
+    LTEXT           "Options",IDC_STATIC,125,7,26,8
+    CONTROL         "",IDC_QUAKE_BUILDOPTIONS_TOOL_LIST,"SysListView32",LVS_LIST | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,17,91,143
+    EDITTEXT        IDC_QUAKE_BUILD_OPTIONS_COMMAND_LINE,7,172,207,14,ES_AUTOHSCROLL
+    LTEXT           "Additional Command Line:",IDC_STATIC,7,163,83,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_QUAKECONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 197
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 315
+    END
+
+    IDD_QUAKE_BUILD_OPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 214
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 212
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_RCDATA
+//
+
+IDR_RT_QUAKEPAL         RT_RCDATA               "res\\Quake.pal"
+IDR_RT_QUAKE2PAL        RT_RCDATA               "res\\Quake2.pal"
+IDR_RT_HALFLIFEPAL      RT_RCDATA               "res\\Halflife.pal"
+ICR_RT_KINGPINPAL       RT_RCDATA               "res\\Kingpin.pal"
+IDR_RT_Q2COLORMAP       RT_RCDATA               "res\\q2colormap.pcx"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_QUAKE_CHECK_BUTTONS BITMAP                  "res\\checkbuttons2.bmp"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\QGames.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
