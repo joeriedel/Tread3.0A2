@@ -7,7 +7,7 @@ How to use it:
 
 1) Launch Tread.exe
 2) Under the menu you can configure settings for the various Quake games. The utilities for bsp/light/vis are included in the binaries release.
-3) File->New, pick the map type.
+3) File->New... pick the map type.
 4) On the right hand dock there are a list of things you can make, brushes / entities.
 5) You create new things by Alt+RClick
 6) Middle mouse pans in all views (even texture view)
@@ -23,3 +23,4 @@ How to use it:
 16) Undo history is pretty robust and also saves with the map file.
 17) There are probably other various modifier combinations that do different things but I don't remember.
 18) There is decent grouping/ungrouping, and show/hide (see the right dock bar near the bottom).
+19) Right click in any view in the upper left corner for a context menu to change view options.
